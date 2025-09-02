@@ -21,6 +21,13 @@ const bulkBtn = document.getElementById("bulk-btn");
 const bulkEntry = document.getElementById("bulk-entry");
 const clearBtn = document.getElementById("clear-btn");
 
+// Crear un div fijo para Total spins
+const totalDiv = document.createElement("div");
+totalDiv.textContent = `Total spins: ${totalSpins}`;
+totalDiv.style.color = "#e8eaed";
+totalDiv.style.marginTop = "6px";
+countersDiv.appendChild(totalDiv);
+
 function weightedChoice(mapping) {
   const keys = Object.keys(mapping);
   const weights = Object.values(mapping);
@@ -45,7 +52,9 @@ function updateUI(rarity, item, historyOnly=false){
   resultColor.style.backgroundColor = RARITIES[rarity].color;
   resultText.textContent = `${item} — ${rarity}`;
   
-  countersDiv.innerHTML = "";
+  countersDiv.innerHTML = ""; // limpiar contadores
+
+  // Generar contadores por rareza
   for (let r in countsPerRarity){
     const div = document.createElement("div");
     div.textContent = `${r}: ${countsPerRarity[r]}`;
@@ -53,22 +62,19 @@ function updateUI(rarity, item, historyOnly=false){
     div.className = "counter-item";
     countersDiv.appendChild(div);
   }
-  
-  // Añadir total spins debajo de Divine
-  const totalDiv = document.createElement("div");
-  totalDiv.textContent = `Total spins: ${totalSpins}`;
-  totalDiv.style.color = "#e8eaed";
-  totalDiv.style.marginTop = "6px";
+
+  // volver a agregar totalDiv al final
   countersDiv.appendChild(totalDiv);
-  
+  totalDiv.textContent = `Total spins: ${totalSpins}`;
+
+  // Actualizar historial
   const li = document.createElement("li");
   li.textContent = `${item} [${rarity}]`;
   historyList.prepend(li);
   if (historyList.children.length > 1000) historyList.removeChild(historyList.lastChild);
-  
+
   if (historyOnly) return;
 }
-
 
 spinBtn.onclick = ()=> {
   const {rarity, item} = pickRarityAndItem();
@@ -91,4 +97,15 @@ clearBtn.onclick = ()=> {
   resultText.textContent = "—";
   countersDiv.innerHTML = "";
   historyList.innerHTML = "";
+
+  // reconstruir contadores y totalDiv
+  for (let r in countsPerRarity){
+    const div = document.createElement("div");
+    div.textContent = `${r}: ${countsPerRarity[r]}`;
+    div.style.color = RARITIES[r].color;
+    div.className = "counter-item";
+    countersDiv.appendChild(div);
+  }
+  countersDiv.appendChild(totalDiv);
+  totalDiv.textContent = `Total spins: ${totalSpins}`;
 }
