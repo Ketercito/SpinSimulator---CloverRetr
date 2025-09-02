@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spin Gacha - DAM Edition</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="container">
+  <h1>Spin Gacha Simulator</h1>
+
+  <div id="controls">
+    <button id="spin-btn">SPIN</button>
+    <input id="bulk-entry" type="number" value="10" min="1">
+    <button id="bulk-btn">Spin xN</button>
+    <button id="clear-btn">Clear</button>
+  </div>
+
+  <div id="result-container">
+    <div id="result-color"></div>
+    <div id="result-text">—</div>
+  </div>
+
+  <h2>Count</h2>
+  <div id="counters"></div>
+
+  <h2>History</h2>
+  <ul id="history"></ul>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
