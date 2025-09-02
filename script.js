@@ -54,6 +54,13 @@ function updateUI(rarity, item, historyOnly=false){
     countersDiv.appendChild(div);
   }
   
+  // Añadir total spins debajo de Divine
+  const totalDiv = document.createElement("div");
+  totalDiv.textContent = `Total spins: ${totalSpins}`;
+  totalDiv.style.color = "#e8eaed";
+  totalDiv.style.marginTop = "6px";
+  countersDiv.appendChild(totalDiv);
+  
   const li = document.createElement("li");
   li.textContent = `${item} [${rarity}]`;
   historyList.prepend(li);
@@ -61,6 +68,7 @@ function updateUI(rarity, item, historyOnly=false){
   
   if (historyOnly) return;
 }
+
 
 spinBtn.onclick = ()=> {
   const {rarity, item} = pickRarityAndItem();
